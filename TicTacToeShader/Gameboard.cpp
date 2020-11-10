@@ -10,28 +10,22 @@ Gameboard::Gameboard()
 }
 
 //TODO Clean this up later.
-void Gameboard::CreateGameboard(unsigned int _x, unsigned int _y)
+void Gameboard::CreateGameboard(sf::FloatRect _bounds, unsigned int _width, unsigned int _height)
 {
-	width = _x;
-	height = _y;
+	SetBounds(_bounds);
+	width = _width;
+	height = _height;
+
 
 	//Location where we start drawing the board
-	sf::Vector2f _northEastCorner(Settings::BOARD_WEST_PADDING, Settings::BOARD_NORTH_PADDING);
+	sf::Vector2f _northEastCorner(_bounds.left, _bounds.top);
 
-	//Get the window size, Calculate padding offset for size of board bounds
-	sf::Vector2f _winSize = sf::Vector2f(Settings::WINSIZE);
-	int _yOffset = Settings::BOARD_NORTH_PADDING + Settings::BOARD_SOUTH_PADDING;
-	int _xOffset = Settings::BOARD_EAST_PADDING + Settings::BOARD_WEST_PADDING;
-	
-	//Bounds of the board
-	sf::Vector2f _boardBounds = _winSize - sf::Vector2f(_xOffset, _yOffset);
+	//Total of the padding between tiles.
+	int _yPaddingTotal = Settings::BETWEEN_TILE_PADDING * (height-1);
+	int _xPaddingTotal = Settings::BETWEEN_TILE_PADDING * (width-1);
 
-	//Calculate TilePaddingOffset and then TileSize.
-	int _yTileOffset = Settings::BETWEEN_TILE_PADDING * height;
-	int _xTileOffset = Settings::BETWEEN_TILE_PADDING * width;
-
-	sf::Vector2f _tileSize = sf::Vector2f(((_boardBounds.x - _xTileOffset ) / width), 
-		((_boardBounds.y - _yTileOffset) / height));
+	sf::Vector2f _tileSize = sf::Vector2f(((_bounds.width - _xPaddingTotal ) / width), 
+		((_bounds.height - _yPaddingTotal) / height));
 
 	//Now to fill the board
 	for (unsigned int y = 0; y < height; y++)
@@ -41,9 +35,9 @@ void Gameboard::CreateGameboard(unsigned int _x, unsigned int _y)
 			Point _pos(x, y);
 			if (!DoesPointExist(_pos) && IsPointWithinBounds(_pos))
 			{
-				int _tilePositionX = Settings::BOARD_EAST_PADDING + (x*Settings::BETWEEN_TILE_PADDING) + (x * _tileSize.x);
-				int _tilePositionY = Settings::BOARD_NORTH_PADDING + (y*Settings::BETWEEN_TILE_PADDING) + (y * _tileSize.y);
-				Tile _tile(_tileSize, sf::Vector2f(_tilePositionX, _tilePositionY));
+				int _tilePositionX = _bounds.left + (x*Settings::BETWEEN_TILE_PADDING) + (x * _tileSize.x);
+				int _tilePositionY = _bounds.top + (y*Settings::BETWEEN_TILE_PADDING) + (y * _tileSize.y);
+				Tile _tile(sf::FloatRect(sf::Vector2f(_tilePositionX, _tilePositionY), _tileSize));
 				board.insert(std::pair<Point, Tile>(_pos, _tile));
 			}
 		}
@@ -89,3 +83,17 @@ Tile Gameboard::GetTileAtPoint(Point _point)
 	}
 	return board.at(_point);
 }
+
+void Gameboard::Click(const sf::Vector2f _loc)
+{
+	std::map<Point, Tile>::iterator _it;
+	for (_it = board.begin(); _it != board.end(); _it++)
+	{
+		if (_it->second.ContainsPoint(_loc))
+		{
+			_it->second.Click(_loc);
+			return;
+		}
+	}
+}
+

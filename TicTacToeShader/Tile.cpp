@@ -1,10 +1,11 @@
 #include "Tile.h"
 
-Tile::Tile(sf::Vector2f _bounds, sf::Vector2f _position, PlayerEnum _player)
-	: shape(_bounds), status(_player)
+Tile::Tile(sf::FloatRect _bounds, PlayerEnum _player)
+	: shape(sf::Vector2f(_bounds.width, _bounds.height)), status(_player)
 {
-	shape.setPosition(_position);
-	shape.setOutlineColor(sf::Color(0, 255, 255, 155));
+	SetBounds(_bounds);
+	shape.setPosition(sf::Vector2f(_bounds.left, _bounds.top));
+	shape.setOutlineColor(sf::Color(10, 173, 255, 255));
 	shape.setOutlineThickness(-3);
 }
 
@@ -17,14 +18,24 @@ void Tile::ChangePlayer(PlayerEnum _player)
 {
 	//TODO: SHADERRRRRRS AND COLORS?
 	status = _player;
+	shape.setFillColor(Settings::GetPlayerColor(_player));
 }
 
 void Tile::ChangePosition(sf::Vector2f _pos)
 {
 	shape.setPosition(_pos);
+	bounds.left = _pos.x;
+	bounds.top = _pos.y;
 }
 
 void Tile::ChangeSize(sf::Vector2f _size)
 {
 	shape.setSize(_size);
+	bounds.width = _size.x;
+	bounds.height = _size.y;
+}
+
+void Tile::Click(const sf::Vector2f _loc)
+{
+	ChangePlayer(PLAYER2);
 }

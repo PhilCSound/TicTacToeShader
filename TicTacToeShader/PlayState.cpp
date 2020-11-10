@@ -18,7 +18,7 @@ void PlayState::OnEntry(Application * _app)
 
 	//board
 	background.Initialize();
-	board.CreateGameboard(10, 10);
+	board.CreateGameboard(sf::FloatRect(40, 80, 720, 440), 10, 10);
 }
 
 void PlayState::OnExit()
@@ -27,7 +27,7 @@ void PlayState::OnExit()
 
 void PlayState::Draw(sf::RenderWindow & _window)
 {
-	//background.Draw(_window);
+	background.Draw(_window);
 	//_test.setPosition(200, 200); //Part of shader tests
 	//_window.draw(_test, &_shader); //Was part of shadertest.
 	board.Draw(_window);
@@ -38,12 +38,17 @@ void PlayState::Update(Application * _app, sf::Time _elapTime)
 	background.Update(_elapTime);
 }
 
-void PlayState::HandleEvent(sf::Event _event)
+void PlayState::HandleEvent(sf::Event _event, sf::RenderWindow & _window)
 {
+
 	//TODO Player logic and handling mouse.
 	if (_event.type == sf::Event::MouseButtonReleased)
 		if (_event.mouseButton.button == sf::Mouse::Left)
 		{
+			sf::Vector2i _pixPos(_event.mouseButton.x, _event.mouseButton.y);
+			sf::Vector2f _pos = _window.mapPixelToCoords(_pixPos);
+			if (board.ContainsPoint(_pos))
+				board.Click(_pos);
 		}
 }
 

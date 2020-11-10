@@ -11,7 +11,7 @@ class PlayState : public State
 
 	void Draw(sf::RenderWindow & _window) override;
 	void Update(Application * _app, sf::Time _elapTime) override;
-	void HandleEvent(sf::Event _event) override;
+	void HandleEvent(sf::Event _event, sf::RenderWindow & _window) override;
 
 	void Pause() override;
 	void Unpause() override;

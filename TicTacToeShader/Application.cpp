@@ -82,11 +82,11 @@ void Application::HandleInput()
 
 			case sf::Event::Resized:
 				Settings::WINSIZE = sf::Vector2u(_event.size.width, _event.size.height);
-				stackOfStates.back()->HandleEvent(_event);
+				stackOfStates.back()->HandleEvent(_event, window);
 				break;
 
 			default:
-				stackOfStates.back()->HandleEvent(_event);
+				stackOfStates.back()->HandleEvent(_event, window);
 				break;
 		}
 	}
