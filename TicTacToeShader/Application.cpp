@@ -1,10 +1,9 @@
 #pragma once
 #include "Application.h"
-#include "Settings.h"
 
 Application::Application()
 {
-	window.create(sf::VideoMode(800, 600, 32), "Sf Test");
+	window.create(sf::VideoMode(800, 600, 32), "Tic Tac Toe");
 	window.setFramerateLimit(60);
 	isRunning = true;
 	TextureManager* t = t->getInstance();	// Singleton instance.
@@ -81,7 +80,6 @@ void Application::HandleInput()
 				break;
 
 			case sf::Event::Resized:
-				Settings::WINSIZE = sf::Vector2u(_event.size.width, _event.size.height);
 				stackOfStates.back()->HandleEvent(_event, window);
 				break;
 

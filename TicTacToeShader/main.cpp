@@ -2,12 +2,17 @@
 #include "SFML/Graphics.hpp"
 #include "Application.h"
 #include "PlayState.h"
+#include "PlayerData.h"
+#include "BoardData.h"
+
 
 int main()
 {
 	Application app;
-
-	State* playState = new PlayState();
+	BoardData _d(5,6);
+	_d.FloodMapWithTiles();
+	//TODO Launcher State
+	State* playState = new PlayState(PlayerData(),_d,3,2);
 
 
 

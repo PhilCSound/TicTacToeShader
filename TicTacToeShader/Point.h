@@ -33,12 +33,3 @@ public:
 	static const Point West;
 	static const Point NorthWest;
 };
-
-const Point North(0,1);
-const Point NorthEast(1,1);
-const Point East(1,0);
-const Point SouthEast(1,-1);
-const Point South(0,-1);
-const Point SouthWest(-1,-1);
-const Point West(-1,0);
-const Point NorthWest(-1,1);

@@ -1,12 +1,12 @@
 #include "AnimatedBackground.h"
-#include "Settings.h"
 
 void AnimatedBackground::Initialize()
 {
+	//TODO VIDEO SETTINGS
 	sf::Texture& _texture = TextureManager::getInstance()->GetTexture("background");
 	currSprite.setTexture(_texture);
 	//Scale it to window size
-	sf::Vector2f _winSize = sf::Vector2f(Settings::WINSIZE);
+	sf::Vector2f _winSize = sf::Vector2f(800, 600);
 	sf::Vector2f _sprSize = sf::Vector2f(_texture.getSize());
 	currSprite.setScale(sf::Vector2f((_winSize.x / _sprSize.x), (_winSize.y / _sprSize.y)));
 	//Set origin of sprite for rotation, and adjust draw position to stay in center of screen.

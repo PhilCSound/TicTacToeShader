@@ -1,5 +1,14 @@
 #include "Point.h"
 
+const Point Point::North = Point(0, 1);
+const Point Point::NorthEast = Point(1, 1);
+const Point Point::East = Point(1, 0);
+const Point Point::SouthEast = Point(1, -1);
+const Point Point::South = Point(0, -1);
+const Point Point::SouthWest = Point(-1, -1);
+const Point Point::West = Point(-1, 0);
+const Point Point::NorthWest = Point(-1, 1);
+
 Point::Point()
 	: X(0), Y(0)
 {

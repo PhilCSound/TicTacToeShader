@@ -1,21 +1,20 @@
 #pragma once
 #include "PlayerEnum.h"
-#include "Settings.h"
 #include "SFML/Graphics.hpp"
-#include "MouseInteractable.h"
 
-class Tile : public MouseInteractable
+class Tile
 {
 public:
-	Tile() { };
-	Tile(sf::FloatRect _bounds, PlayerEnum _player = PlayerEnum::NONE);
-	void Draw(sf::RenderWindow &_window);
+	Tile(unsigned int _x, unsigned int _y, PlayerEnum _player = PlayerEnum::NO_PLAYER);
 	void ChangePlayer(PlayerEnum _player);
-	void ChangePosition(sf::Vector2f _pos);	
-	void ChangeSize(sf::Vector2f _size);
-	void Click(const sf::Vector2f _loc);
+	bool ChangedPlayer();
+	PlayerEnum GetPlayer() { return status; }
+	unsigned int GetX() { return x; }
+	unsigned int GetY() { return y; }
 private:
-	sf::RectangleShape shape;
-	PlayerEnum status = PlayerEnum::NONE;
+	PlayerEnum status = PlayerEnum::NO_PLAYER;
+	bool changed = false;
+	unsigned int x;
+	unsigned int y;
 };
 
