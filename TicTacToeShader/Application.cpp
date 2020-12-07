@@ -3,9 +3,9 @@
 
 Application::Application()
 {
-	window.create(sf::VideoMode(800, 600, 32), "Tic Tac Toe");
+	window.create(sf::VideoMode(800, 600, 32), "Rougelike");
 	window.setFramerateLimit(60);
-	isRunning = true;
+	isRunning = window.isOpen();
 	TextureManager* t = t->getInstance();	// Singleton instance.
 }
 

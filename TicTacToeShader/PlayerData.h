@@ -10,7 +10,7 @@ public:
 	//TODO Load from file to save player preferences?
 
 	void SetPlayerColor(sf::Color _color, PlayerEnum _player);
-	const sf::Color GetPlayerColor(PlayerEnum _player);
+	sf::Color GetPlayerColor(PlayerEnum _player);
 private:
 	sf::Color P1_Color = sf::Color::Red;
 	sf::Color P2_Color = sf::Color::Blue;

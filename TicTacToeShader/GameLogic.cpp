@@ -1,6 +1,6 @@
 #include "GameLogic.h"
 
-GameLogic::GameLogic(Gameboard & _board, PlayerData* _pData, unsigned int _winCond, unsigned int _numPlayers)
+GameLogic::GameLogic(Gameboard _board, PlayerData* _pData, unsigned int _winCond, unsigned int _numPlayers)
 	: board(_board), playerData(_pData)
 {
 	if (_winCond > 5 || _winCond < 3)
@@ -14,17 +14,23 @@ GameLogic::GameLogic(Gameboard & _board, PlayerData* _pData, unsigned int _winCo
 		numPlayers = _numPlayers;
 }
 
-void GameLogic::MakeMove(Tile *_tile)
+void GameLogic::MakeMove(PlayerEnum _player, Point _point)
 {
-	PlayerEnum _tilePlayer = _tile->GetPlayer();
-	Point _tileLoc(_tile->GetX(), _tile->GetY());
-	if (_tilePlayer == NO_PLAYER)
+	//Check to see if it exists.
+	if (board.DoesPointExist(_point))
 	{
-		_tile->ChangePlayer(currentPlayer);
- 		if (CheckForWin(_tileLoc, currentPlayer))
-			return;
-		else
-			NextTurn();
+		//Get the tile at that point.
+		Tile* _tile = board.GetTileAtPoint(_point);
+		if (_tile->GetPlayer() == NO_PLAYER)
+		{
+			_tile->ChangePlayer(_player);
+			_tile->ChangeColor(playerData->GetPlayerColor(_player));
+			//Check for win, TODO: WIN LOGIC/TIE LOGIC.
+			if (CheckForWin(_point, _player))
+				return;
+			else
+				NextTurn();
+		}
 	}
 }
 
@@ -37,6 +43,7 @@ void GameLogic::NextTurn()
 	int x = 1;
 }
 
+//Checks for a win a certain point.
 bool GameLogic::CheckForWin(Point _orgin, PlayerEnum _player)
 {
 	int Vertical = MatchingTilesInDirection(_orgin, Point::North, _player);
@@ -60,7 +67,7 @@ bool GameLogic::CheckForWin(Point _orgin, PlayerEnum _player)
 
 int GameLogic::MatchingTilesInDirection(Point _orgin, Point _direction, PlayerEnum _player)
 {
-	int counter = 0;
+	int counter = 1;
 	Point _loc = _orgin + _direction;
 	while (board.DoesPointExist(_loc))
 	{

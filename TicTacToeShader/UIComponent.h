@@ -1,6 +1,5 @@
 #pragma once
 #include "SFML/Graphics.hpp"
-#include <functional>
 
 class UIComponent
 {
@@ -19,4 +18,6 @@ public:
 protected:
 	sf::FloatRect clickBox;
 	bool blocking = true;
+
+private:
 };

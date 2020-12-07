@@ -25,7 +25,7 @@ void PlayerData::SetPlayerColor(sf::Color _color, PlayerEnum _player)
 	}
 }
 
-const sf::Color PlayerData::GetPlayerColor(PlayerEnum _player)
+sf::Color PlayerData::GetPlayerColor(PlayerEnum _player)
 {
 		switch (_player)
 		{

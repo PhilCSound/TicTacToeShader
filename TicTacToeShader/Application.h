@@ -4,10 +4,8 @@
 #include "State.h"
 #include "TextureManager.h"
 #include <vector>
-#include "Gameboard.h"
 
 class State;
-class GameBoard;
 
 class Application
 {
