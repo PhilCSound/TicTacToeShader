@@ -60,7 +60,7 @@ bool GameLogic::CheckForWin(Point _orgin, PlayerEnum _player)
 
 int GameLogic::MatchingTilesInDirection(Point _orgin, Point _direction, PlayerEnum _player)
 {
-	int counter = 0;
+	int counter = 1;
 	Point _loc = _orgin + _direction;
 	while (board.DoesPointExist(_loc))
 	{
