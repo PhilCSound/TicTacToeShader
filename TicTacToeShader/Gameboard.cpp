@@ -1,15 +1,13 @@
 #include "Gameboard.h"
 
-Gameboard::Gameboard(BoardData _boardData)
-	: width(_boardData.GetWidth()), height(_boardData.GetHeight())
+Gameboard::Gameboard()
+{
+}
+
+Gameboard::Gameboard(BoardData _boardData) : boardData(_boardData)
 {
 	board.clear();
-	std::vector<Point> _data = _boardData.GetData();
-	for (auto _point : _data)
-	{
-		Tile _tile(_point.X, _point.Y, NO_PLAYER);
-		board.insert(std::pair<Point, Tile>(_point, _tile));
-	}
+	CreateMapFromData();
 }
 
 void Gameboard::CreateUI(std::function<void(Tile*)> _F)
@@ -22,9 +20,50 @@ void Gameboard::CreateUI(std::function<void(Tile*)> _F)
 	}
 }
 
+bool Gameboard::CreateMapFromData()
+{
+	//Data is empty failed
+	if (boardData.IsEmpty())
+		return false;
+	else
+	{
+		std::vector<Point> _data = boardData.GetData();
+		for (auto &_point : _data)
+		{
+			Tile _tile(_point, NO_PLAYER);
+			board.insert(std::pair<Point, Tile>(_point, _tile));
+		}
+		return true;
+	}
+}
+
+bool Gameboard::CreateMapFromData(BoardData _boardData)
+{
+	//Data is empty failed
+	if (_boardData.IsEmpty())
+		return false;
+	else
+	{
+		boardData = _boardData;
+		std::vector<Point> _data = boardData.GetData();
+		for (auto &_point : _data)
+		{
+			Tile _tile(_point, NO_PLAYER);
+			board.insert(std::pair<Point, Tile>(_point, _tile));
+		}
+		return true;
+	}
+}
+
+void Gameboard::ClearAndReloadMapData()
+{
+	board.clear();
+	CreateMapFromData();
+}
+
 bool Gameboard::IsPointWithinBounds(Point _point)
 {
-	if (_point.X > width || _point.Y > height)
+	if (_point.X >= mapSize.X || _point.Y >= mapSize.Y)
 		return false;
 	else
 		return true;
