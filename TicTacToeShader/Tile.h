@@ -1,20 +1,22 @@
 #pragma once
 #include "PlayerEnum.h"
 #include "SFML/Graphics.hpp"
+#include "Point.h"
 
 class Tile
 {
 public:
-	Tile(unsigned int _x, unsigned int _y, PlayerEnum _player = PlayerEnum::NO_PLAYER);
+	Tile() {};
+	Tile(Point _loc, PlayerEnum _player = PlayerEnum::NO_PLAYER);
 	void ChangePlayer(PlayerEnum _player);
 	bool ChangedPlayer();
 	PlayerEnum GetPlayer() { return status; }
-	unsigned int GetX() { return x; }
-	unsigned int GetY() { return y; }
+	const int GetX() { return location.X; }
+	const int GetY() { return location.Y; }
+	const Point GetLocation() { return location; }
 private:
 	PlayerEnum status = PlayerEnum::NO_PLAYER;
 	bool changed = false;
-	unsigned int x;
-	unsigned int y;
+	Point location;
 };
 

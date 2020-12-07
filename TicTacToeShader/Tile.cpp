@@ -1,7 +1,7 @@
 #include "Tile.h"
 
-Tile::Tile(unsigned int _x, unsigned int _y, PlayerEnum _player)
-	: x(_x), y(_y), status(_player)
+Tile::Tile(Point _loc, PlayerEnum _player)
+	: location(_loc), status(_player)
 {
 }
 
