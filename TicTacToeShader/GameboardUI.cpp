@@ -1,15 +1,32 @@
 #include "GameboardUI.h"
 
-GameboardUI::GameboardUI(sf::FloatRect _sizeAndClickBox, BoardData _boardData, PlayerData* _p, GameLogic* _l)
-	: UIComponent(_sizeAndClickBox), width(_boardData.GetWidth()),
-		height(_boardData.GetHeight()), playerData(_p), gameLogic(_l)
+GameboardUI::GameboardUI(sf::FloatRect _sizeAndClickBox)
+	: clickBox(_sizeAndClickBox)
 {
-	//Total of the padding between tiles.
-	//TODO VIDEO SETTING AND PADDING
-	int _yPaddingTotal = 12 * (height - 1);
-	int _xPaddingTotal = 12 * (width - 1);
-	tileSize = sf::Vector2f(((clickBox.width - _xPaddingTotal) / width),
-		((clickBox.height - _yPaddingTotal) / height));
+}
+
+bool GameboardUI::ContainsPosition(sf::Vector2f _pos)
+{
+	for (TileUI& i : TileComponents)
+	{
+		if (i.ContainsPosition(_pos))
+			return clickBox.contains(_pos);
+	}
+	return false;
+}
+
+void GameboardUI::CreateUI(BoardData _data)
+{
+	mapSize = _data.GetSize();
+	CalculateUISizes();
+
+	std::vector<Point> _boardInfo = _data.GetData();
+	for (Point &_p : _boardInfo)
+	{
+		sf::Vector2f _tileLoc = CalculateTileLocation(_p);
+		TileUI _tileUI(_p, sf::FloatRect(_tileLoc, tileSize));
+		TileComponents.push_back(_tileUI);
+	}
 }
 
 void GameboardUI::Draw(sf::RenderWindow & _window)
@@ -20,39 +37,48 @@ void GameboardUI::Draw(sf::RenderWindow & _window)
 	}
 }
 
-void GameboardUI::CreateTileComponent(Tile * _tile)
-{
-	float _positionX = (_tile->GetX() * tileSize.x) + 
-		(12* _tile->GetX()) + clickBox.left;
-	float _positionY = (_tile->GetY() * tileSize.y) + 
-		(12* _tile->GetY()) + clickBox.top;
-	sf::FloatRect _rect(sf::Vector2f(_positionX, _positionY), tileSize);
-	TileUI _uiTile(_tile, _rect);
-	TileComponents.push_back(_uiTile);
-}
-
-void GameboardUI::OnClick(sf::Vector2f _pos)
+Point GameboardUI::GetTileOnClick(sf::Vector2f _pos)
 {
 	for (TileUI& i : TileComponents)
 	{
 		if (i.ContainsPosition(_pos)) {
-			gameLogic->MakeMove(i.GetTileInfo());
-			//TODO Look into making a Player Class to undo this rats nest..
-			if (i.GetTileInfo()->ChangedPlayer())
-				i.UpdateSpriteColor(playerData->GetPlayerColor(i.GetTileInfo()->GetPlayer()));
+			return i.GetPoint();
 		}
 	}
 }
 
-void GameboardUI::SetOnTileClick(void(*_click)(Tile *))
-{
-	HandleTileClick = _click;
-}
-
 void GameboardUI::Update(sf::Time _time)
 {
-	for (auto i : TileComponents)
+	for (TileUI& i : TileComponents)
 	{
 		i.Update(_time);
 	}
+}
+
+void GameboardUI::UpdateTileUIColor(Point _point, sf::Color _color)
+{
+	for (TileUI& i : TileComponents)
+	{
+		if (i.GetPoint() == _point){
+			i.UpdateSpriteColor(_color);
+		}
+	}
+}
+
+void GameboardUI::CalculateUISizes()
+{
+	//TODO TILE PADDING
+	//Calculate padding between each tile, 12 being a constant in px.
+	tilePadding = sf::Vector2f((mapSize.X * 12), (mapSize.Y * 12));
+	//Calculates tileSize
+	tileSize = sf::Vector2f(((clickBox.width - tilePadding.x) / mapSize.X),
+		((clickBox.height - tilePadding.y) / mapSize.Y));
+}
+
+sf::Vector2f GameboardUI::CalculateTileLocation(Point _point)
+{
+	//TODO VIDEO SETTINGS/PADDING
+	float _posX = (tileSize.x * _point.X ) + (_point.X * 12) + clickBox.left;
+	float _posY = (tileSize.y * _point.Y) + (_point.Y * 12) + clickBox.top;
+	return sf::Vector2f(_posX, _posY);
 }

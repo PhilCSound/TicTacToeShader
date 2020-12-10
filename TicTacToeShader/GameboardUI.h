@@ -1,26 +1,27 @@
 #pragma once
-#include "UIComponent.h"
 #include "TileUI.h"
 #include <vector>
 #include "BoardData.h"
-#include "PlayerData.h"
-#include "GameLogic.h"
-
-class GameboardUI : public UIComponent
+#include "Gameboard.h"
+class GameboardUI
 {
 public:
-	GameboardUI(sf::FloatRect _sizeAndClickBox, BoardData _boardData, PlayerData* _playerData, GameLogic* _logic);
+	GameboardUI(sf::FloatRect _sizeAndClickBox);
+	bool ContainsPosition(sf::Vector2f _pos);
+	void CreateUI(BoardData _data);
 	void Draw(sf::RenderWindow & _window);
-	void CreateTileComponent(Tile *_tile);
-	void OnClick(sf::Vector2f _pos);
-	void SetOnTileClick(void(*_click)(Tile*));
+	Point GetTileOnClick(sf::Vector2f _pos);
 	void Update(sf::Time _time);
+	void UpdateTileUIColor(Point _point, sf::Color _color);
+
 private:
 	std::vector<TileUI> TileComponents;
-	void(*HandleTileClick)(Tile*) = nullptr;
-	unsigned width, height;
+	Point mapSize;
 	sf::Vector2f tileSize;
-	PlayerData* playerData;
-	GameLogic* gameLogic;
+	sf::Vector2f tilePadding;
+	sf::FloatRect clickBox;
+
+	void CalculateUISizes();
+	sf::Vector2f CalculateTileLocation(Point _point);
 };
 
