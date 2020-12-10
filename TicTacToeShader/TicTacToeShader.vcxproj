@@ -150,7 +150,6 @@
     <ClCompile Include="BoardData.cpp" />
     <ClCompile Include="Gameboard.cpp" />
     <ClCompile Include="GameboardUI.cpp" />
-    <ClCompile Include="GameLogic.cpp" />
     <ClCompile Include="PlayerData.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PlayState.cpp" />
@@ -165,7 +164,6 @@
     <ClInclude Include="BoardData.h" />
     <ClInclude Include="Gameboard.h" />
     <ClInclude Include="GameboardUI.h" />
-    <ClInclude Include="GameLogic.h" />
     <ClInclude Include="PlayerData.h" />
     <ClInclude Include="PlayerEnum.h" />
     <ClInclude Include="PlayState.h" />
