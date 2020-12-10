@@ -1,7 +1,7 @@
 #include "TileUI.h"
 
-TileUI::TileUI(Tile * _tile, sf::FloatRect _spriteSize)
-	: UIComponent(_spriteSize), tile(_tile)
+TileUI::TileUI(Point _loc, sf::FloatRect _spriteSize)
+	: UIComponent(_spriteSize), point(_loc)
 {
 	sprite.setPosition(_spriteSize.left, _spriteSize.top);
 	sprite.setSize(sf::Vector2f(_spriteSize.width, _spriteSize.height));
@@ -16,9 +16,6 @@ void TileUI::Draw(sf::RenderWindow & _window)
 
 void TileUI::Update(sf::Time _gameTime)
 {
-	//TODO can look into doing animations :o
-	if (tile->ChangedPlayer())
-		UpdateSpriteColor(sf::Color::Green);
 }
 
 void TileUI::UpdateSpriteColor(sf::Color _color)
