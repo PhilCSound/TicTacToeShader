@@ -1,10 +1,10 @@
 #include "PlayState.h"
 
 PlayState::PlayState(PlayerData _playerData, BoardData _boardData, int _winCond, int _numPlayers)
-	: board(_boardData), playerData(_playerData ),gameLogic(board, &playerData, _winCond, _numPlayers),
-	boardUI(sf::FloatRect(80, 60, 640, 480), _boardData, &playerData, &gameLogic)
+	: board(_boardData), playerData(_playerData ), boardUI(sf::FloatRect(80, 60, 640, 480)),
+		winCondition(_winCond), numberOfPlayers(_numPlayers)
 {
-
+	boardUI.CreateUI(_boardData);
 }
 
 void PlayState::OnEntry(Application * _app)
@@ -24,7 +24,6 @@ void PlayState::OnEntry(Application * _app)
 	using namespace std::placeholders;
 	//board
 	background.Initialize(); 
-	board.CreateUI(std::bind(&GameboardUI::CreateTileComponent, &boardUI, _1));
 }
 
 void PlayState::OnExit()
@@ -55,7 +54,15 @@ void PlayState::HandleEvent(sf::Event _event, sf::RenderWindow & _window)
 			sf::Vector2f _pos = _window.mapPixelToCoords(_pixPos);
 			if (boardUI.ContainsPosition(_pos))
 			{
-				boardUI.OnClick(_pos);
+				Point _loc = boardUI.GetTileOnClick(_pos);
+				if (board.IsValidMove(_loc, currentPlayer))
+				{
+					board.MakeMove(_loc, currentPlayer);
+					boardUI.UpdateTileUIColor(_loc, playerData.GetPlayerColor(currentPlayer));
+					if (board.CheckForWin(_loc, currentPlayer, winCondition) || board.CheckForTie())
+						winCondition = 100;
+					NextTurn();
+				}
 			}
 		}
 }
@@ -66,4 +73,13 @@ void PlayState::Pause()
 
 void PlayState::Unpause()
 {
+}
+
+void PlayState::NextTurn()
+{
+	if (currentPlayer + 1 > numberOfPlayers)
+		currentPlayer = PLAYER1;
+	else
+		currentPlayer = static_cast<PlayerEnum>(currentPlayer + 1);
+	int x = 1;
 }

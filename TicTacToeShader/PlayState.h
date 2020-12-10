@@ -7,14 +7,11 @@
 #include "GameboardUI.h"
 #include "PlayerData.h"
 #include "BoardData.h"
-#include "GameLogic.h"
-#include <functional>
-
 
 class PlayState : public State
 {
 public:
-	PlayState(PlayerData _playerData, BoardData _boardData, int _winCond, int _numPlayers);
+	PlayState(PlayerData _playerData, BoardData _boardData, int _winCond=3, int _numPlayers=2);
 	void OnEntry(Application * _app) override;
 	void OnExit() override;
 
@@ -26,11 +23,13 @@ public:
 	void Unpause() override;
 
 private:
-	//sf::Shader _shader;
-	//sf::Sprite _test;
 	Gameboard board;
 	GameboardUI boardUI;
-	GameLogic gameLogic;
 	PlayerData playerData;
 	AnimatedBackground background;
+	PlayerEnum currentPlayer = PLAYER1;
+	int winCondition;
+	int numberOfPlayers;
+
+	void NextTurn();
 };
