@@ -19,6 +19,7 @@ bool TextureManager::LoadFile(std::string _fileName, std::string _key)
 		sf::Texture _texture;
 		if (!_texture.loadFromFile(_fileName))
 			return false;
+		_texture.setRepeated(true);
 		textures.insert(std::pair<std::string, sf::Texture>(_key, _texture));
 	}
 	return true;

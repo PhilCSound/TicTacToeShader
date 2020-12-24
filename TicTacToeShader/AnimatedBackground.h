@@ -1,4 +1,6 @@
 #pragma once
+#include <vector>
+#include <string>
 #include "SFML/Graphics.hpp"
 #include "TextureManager.h"
 
@@ -9,13 +11,17 @@ public:
 	void Update(sf::Time _elapsedTime);
 	void Draw(sf::RenderWindow& _window);
 
+	void IncrementBackground();
+	void DecrementBackground();
+
 private:
-	void swapAndRotateSprites();
+	void updateSpriteTexture();
+	void scaleBackground();
 
 	sf::Sprite currSprite;
-	sf::Sprite nextSprite;
-	sf::Time animTime = sf::milliseconds(2000);
+	sf::Time animTime = sf::milliseconds(16000);
 	sf::Time elapTime;
-
+	std::vector<std::string> backgrounds;
+	std::vector<std::string>::iterator currentTex;
 };
 
