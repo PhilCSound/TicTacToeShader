@@ -1,0 +1,251 @@
+Renderer.1 {
+    backgroundcolor = #F5F5F5;
+    backgroundcolordisabled = #E6E6E6;
+    backgroundcolordown = #EBEBEB;
+    backgroundcolorhover = white;
+    bordercolor = #3C3C3C;
+    bordercolordisabled = #7D7D7D;
+    bordercolordown = black;
+    bordercolorfocused = #1E1EB4;
+    bordercolorhover = black;
+    borders = (1, 1, 1, 1);
+    textcolor = #3C3C3C;
+    textcolordisabled = #7D7D7D;
+    textcolordown = black;
+    textcolorhover = black;
+    texture = None;
+    texturedisabled = None;
+    texturedown = None;
+    texturefocused = None;
+    texturehover = None;
+}
+
+Renderer.2 {
+    backgroundcolor = transparent;
+    bordercolor = #3C3C3C;
+    borders = (0, 0, 0, 0);
+    textcolor = #3C3C3C;
+    texturebackground = None;
+}
+
+Renderer.3 {
+    bordercolor = #3C3C3C;
+    bordercolorhover = black;
+    borders = (1, 1, 1, 1);
+    texturethumb = None;
+    texturethumbhover = None;
+    texturetrack = None;
+    texturetrackhover = None;
+    thumbcolor = #F5F5F5;
+    thumbcolorhover = white;
+    trackcolor = #F5F5F5;
+    trackcolorhover = white;
+}
+
+Group.MainMenuGroup {
+    Size = (800, 600);
+
+    Renderer {
+    }
+
+    Button.CreditsButon {
+        Position = (60, 480);
+        Size = (180, 60);
+        Text = Credits;
+        TextSize = 32;
+        renderer = &1;
+    }
+
+    Button.MapEditorButton {
+        Position = (60, 400);
+        Size = (180, 60);
+        Text = "Map Editor";
+        TextSize = 28;
+        renderer = &1;
+    }
+
+    Button.PlayButton {
+        Position = (60, 240);
+        Size = (180, 60);
+        Text = "Play!";
+        TextSize = 36;
+        renderer = &1;
+    }
+
+    Button.SettingsButton {
+        Position = (60, 320);
+        Size = (180, 60);
+        Text = Settings;
+        TextSize = 36;
+        renderer = &1;
+    }
+
+    TextBox.MessageBox {
+        DefaultText = "Here I will post updates about the project.";
+        HorizontalScrollbarPolicy = Never;
+        MaximumCharacters = 0;
+        Position = (260, 240);
+        ReadOnly = true;
+        Size = (480, 300);
+        Text = "";
+        TextSize = 13;
+
+        Renderer {
+            backgroundcolor = white;
+            bordercolor = black;
+            borders = (1, 1, 1, 1);
+            caretcolor = black;
+            caretwidth = 1;
+            defaulttextcolor = #A0A0A0;
+            padding = (0, 0, 0, 0);
+            selectedtextbackgroundcolor = #006EFF;
+            selectedtextcolor = white;
+            textcolor = #3C3C3C;
+            texturebackground = None;
+        }
+    }
+
+    Label.TitleLabel {
+        AutoSize = true;
+        Position = (60, 90);
+        ScrollbarPolicy = Never;
+        Size = (535.2, 128);
+        Text = "Tic Tac Toe";
+        TextSize = 96;
+        renderer = &2;
+    }
+
+    Label.AuthorLabel {
+        AutoSize = true;
+        Position = (480, 190);
+        ScrollbarPolicy = Never;
+        Size = (100.2, 18);
+        Text = "By: Phillip Cook";
+        TextSize = 13;
+        renderer = &2;
+    }
+
+    Button.BackgroundChangeButton {
+        Position = (600, 130);
+        Size = (140, 50);
+        Text = "Change Background";
+        TextSize = 13;
+        renderer = &1;
+    }
+}
+
+Panel.PlayPanel {
+    Position = (240, 60);
+    Size = (360, 480);
+    Visible = false;
+
+    Renderer {
+        backgroundcolor = white;
+        bordercolor = black;
+        texturebackground = None;
+    }
+
+    Button.BeginButton {
+        Position = (60, 370);
+        Size = (240, 60);
+        Text = "Begin!";
+        TextSize = 32;
+        renderer = &1;
+    }
+
+    Label.NumPlayerLabel {
+        AutoSize = true;
+        Position = (60, 110);
+        ScrollbarPolicy = Never;
+        Size = (201.8, 21);
+        Text = "Number Of Local Players";
+        TextSize = 16;
+        renderer = &2;
+    }
+
+    Label.MapWidthLabel {
+        AutoSize = true;
+        Position = (60, 290);
+        ScrollbarPolicy = Never;
+        Size = (90.8, 21);
+        Text = "Map Width";
+        TextSize = 16;
+        renderer = &2;
+    }
+
+    Label.WinCondLabel {
+        AutoSize = true;
+        Position = (60, 170);
+        ScrollbarPolicy = Never;
+        Size = (117.8, 21);
+        Text = "Win Condition";
+        TextSize = 16;
+        renderer = &2;
+    }
+
+    Label.MapHeightLabel {
+        AutoSize = true;
+        Position = (60, 230);
+        ScrollbarPolicy = Never;
+        Size = (97.8, 21);
+        Text = "Map Height";
+        TextSize = 16;
+        renderer = &2;
+    }
+
+    Button.BackToMainMenu {
+        Position = (60, 40);
+        Size = (240, 60);
+        Text = "Return to Main Menu";
+        TextSize = 18;
+        renderer = &1;
+    }
+
+    Slider.NumPlayerSlider {
+        ChangeValueOnScroll = true;
+        InvertedDirection = false;
+        Maximum = 4;
+        Minimum = 2;
+        Position = (70, 140);
+        Size = (230, 20);
+        Step = 1;
+        Value = 2;
+        renderer = &3;
+    }
+
+    Slider.Slider1 {
+        ChangeValueOnScroll = true;
+        InvertedDirection = false;
+        Maximum = 7;
+        Minimum = 3;
+        Position = (70, 200);
+        Size = (230, 20);
+        Step = 1;
+        Value = 3;
+        renderer = &3;
+    }
+
+    Slider.MapHeightSlider {
+        ChangeValueOnScroll = true;
+        InvertedDirection = false;
+        Maximum = 16;
+        Minimum = 3;
+        Position = (70, 260);
+        Size = (230, 20);
+        Step = 1;
+        Value = 3;
+        renderer = &3;
+    }
+
+    Slider.MapWidthSlider {
+        ChangeValueOnScroll = true;
+        InvertedDirection = false;
+        Maximum = 16;
+        Minimum = 3;
+        Position = (70, 320);
+        Size = (230, 20);
+        Step = 1;
+        Value = 3;
+        renderer = &3;
+    }
+}

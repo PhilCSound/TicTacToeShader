@@ -4,6 +4,7 @@
 #include "State.h"
 #include "TextureManager.h"
 #include <vector>
+#include "AnimatedBackground.h"
 
 class State;
 
@@ -18,6 +19,8 @@ public:
 	void PushState(State* _state);
 	void PopState();
 
+	sf::RenderWindow& GetWindow() { return window; }
+	void ChangeBackground() { background.IncrementBackground(); }
 private:
 	void HandleInput();
 
@@ -25,5 +28,6 @@ private:
 	bool isRunning;
 	sf::RenderWindow window;
 	std::vector<State*> stackOfStates;
+	AnimatedBackground background; //TODO: REMOVE THIS FROM APPLICATION AND MAKE SETTINGS
 };
 

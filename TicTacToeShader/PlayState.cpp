@@ -21,8 +21,6 @@ void PlayState::OnEntry(Application * _app)
 	_shader.setUniform("iChannel1", sf::Shader::CurrentTexture);
 	_shader.setUniform("iColor", sf::Glsl::Vec4(1,0,0,1));
 	*/
-	using namespace std::placeholders;
-	//board
 	background.Initialize(); 
 }
 

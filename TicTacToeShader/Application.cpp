@@ -8,6 +8,7 @@ Application::Application()
 	window.setVerticalSyncEnabled(false);
 	isRunning = true;
 	TextureManager* t = t->getInstance();	// Singleton instance.
+	background.Initialize(); //TODO REMOVE FROM APPLICATION
 }
 
 
@@ -26,6 +27,8 @@ void Application::Update()
 	window.clear();
 	HandleInput();
 	stackOfStates.back()->Update(this, elapsedTime);
+	background.Update(elapsedTime); //TODO REMOVE FROM APPLICATION
+	background.Draw(window); //TODO REMOVE FROM APPLICATION
 	stackOfStates.back()->Draw(window);
 	window.display();
 }

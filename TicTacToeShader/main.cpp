@@ -1,10 +1,7 @@
 #include "SFML/Window.hpp"
 #include "SFML/Graphics.hpp"
 #include "Application.h"
-#include "PlayState.h"
-#include "PlayerData.h"
-#include "BoardData.h"
-
+#include "MainMenuState.h"
 
 int main()
 {
@@ -12,7 +9,7 @@ int main()
 	BoardData _d(5,6);
 	_d.FloodMapWithTiles();
 	//TODO Launcher State
-	State* playState = new PlayState(PlayerData(),_d,3,2);
+	State* playState = new MainMenuState();
 
 
 

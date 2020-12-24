@@ -7,7 +7,7 @@ class BoardData
 {
 public:
 	BoardData(unsigned int _w = 3, unsigned int _h = 3)
-		: mapSize(_w, _h) {}
+		: mapSize(_w, _h) { FloodMapWithTiles(); }
 	void FloodMapWithTiles();
 	void LoadFromFile(std::string _path); //TODO
 	const unsigned int GetWidth() { return mapSize.X; }
