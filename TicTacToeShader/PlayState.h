@@ -3,7 +3,6 @@
 #include "SFML/Graphics.hpp"
 #include "TextureManager.h"
 #include "Gameboard.h"
-#include "AnimatedBackground.h"
 #include "GameboardUI.h"
 #include "PlayerData.h"
 #include "BoardData.h"
@@ -26,7 +25,6 @@ private:
 	Gameboard board;
 	GameboardUI boardUI;
 	PlayerData playerData;
-	AnimatedBackground background;
 	PlayerEnum currentPlayer = PLAYER1;
 	int winCondition;
 	int numberOfPlayers;

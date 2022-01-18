@@ -2,6 +2,7 @@
 #include "State.h"
 #include "TGUI/TGUI.hpp"
 #include "PlayState.h"
+#include <string>
 
 class MainMenuState : public State
 {
@@ -22,8 +23,11 @@ private:
 	PlayerData playerData;
 	BoardData boardData;
 
-	void DisplayPlayPanel();
+	void DisplayPanel(std::string _panelName);
 	void ReturnToMainMenu();
+	void BeginGame();
+	void ChangeLabel(std::string _labelName, float _value);
+	void SetButtonValues(std::string _button, unsigned int& _value);
 
 };
 

@@ -69,7 +69,7 @@ void GameboardUI::CalculateUISizes()
 {
 	//TODO TILE PADDING
 	//Calculate padding between each tile, 12 being a constant in px.
-	tilePadding = sf::Vector2f((mapSize.X * 12), (mapSize.Y * 12));
+	tilePadding = sf::Vector2f((mapSize.X * 6), (mapSize.Y * 6));
 	//Calculates tileSize
 	tileSize = sf::Vector2f(((clickBox.width - tilePadding.x) / mapSize.X),
 		((clickBox.height - tilePadding.y) / mapSize.Y));
@@ -78,7 +78,7 @@ void GameboardUI::CalculateUISizes()
 sf::Vector2f GameboardUI::CalculateTileLocation(Point _point)
 {
 	//TODO VIDEO SETTINGS/PADDING
-	float _posX = (tileSize.x * _point.X ) + (_point.X * 12) + clickBox.left;
-	float _posY = (tileSize.y * _point.Y) + (_point.Y * 12) + clickBox.top;
+	float _posX = (tileSize.x * _point.X ) + (_point.X * 6) + clickBox.left;
+	float _posY = (tileSize.y * _point.Y) + (_point.Y * 6) + clickBox.top;
 	return sf::Vector2f(_posX, _posY);
 }

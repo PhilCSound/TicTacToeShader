@@ -21,7 +21,6 @@ void PlayState::OnEntry(Application * _app)
 	_shader.setUniform("iChannel1", sf::Shader::CurrentTexture);
 	_shader.setUniform("iColor", sf::Glsl::Vec4(1,0,0,1));
 	*/
-	background.Initialize(); 
 }
 
 void PlayState::OnExit()
@@ -30,7 +29,6 @@ void PlayState::OnExit()
 
 void PlayState::Draw(sf::RenderWindow & _window)
 {
-	background.Draw(_window);
 	//_test.setPosition(200, 200); //Part of shader tests
 	//_window.draw(_test, &_shader); //Was part of shadertest.
 	boardUI.Draw(_window);
@@ -38,7 +36,6 @@ void PlayState::Draw(sf::RenderWindow & _window)
 
 void PlayState::Update(Application * _app, sf::Time _elapTime)
 {
-	background.Update(_elapTime);
 }
 
 void PlayState::HandleEvent(sf::Event _event, sf::RenderWindow & _window)
@@ -58,7 +55,7 @@ void PlayState::HandleEvent(sf::Event _event, sf::RenderWindow & _window)
 					board.MakeMove(_loc, currentPlayer);
 					boardUI.UpdateTileUIColor(_loc, playerData.GetPlayerColor(currentPlayer));
 					if (board.CheckForWin(_loc, currentPlayer, winCondition) || board.CheckForTie())
-						winCondition = 100;
+						winCondition = 100; //TODO.
 					NextTurn();
 				}
 			}
